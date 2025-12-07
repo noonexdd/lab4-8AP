@@ -36,7 +36,7 @@ public class Menu {
         menuItems.put(name, command);
     }
 
-    public int getUserChoice() {
+    private int getUserChoice() {
         try {
             return Integer.parseInt(input.nextLine()) - 1;
         } catch (NumberFormatException e) {

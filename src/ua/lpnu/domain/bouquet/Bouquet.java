@@ -24,7 +24,7 @@ public class Bouquet {
 
                     if (item1 instanceof Flower) return -1;
 
-                    if (item2 instanceof Flower f2) return 1;
+                    if (item2 instanceof Flower) return 1;
 
                     return 0;
                 })
@@ -51,5 +51,22 @@ public class Bouquet {
         }
         sb.append(String.format("Total price: %.2f\n", calculatePrice()));
         return sb.toString();
+    }
+
+    public int size() {
+        return items.size();
+    }
+
+    public IBouquetItem getItem(int index) {
+        if (index >= 0 && index < items.size()) {
+            return items.get(index);
+        }
+        return null;
+    }
+
+    public void removeItem(int index) {
+        if (index >= 0 && index < items.size()) {
+            items.remove(index);
+        }
     }
 }
