@@ -19,12 +19,12 @@ public abstract class Flower implements IBouquetItem {
     }
 
     @Override
-    public double getPrice() {
+    public double price() {
         return price;
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 

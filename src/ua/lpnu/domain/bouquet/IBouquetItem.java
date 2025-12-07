@@ -1,7 +1,7 @@
 package ua.lpnu.domain.bouquet;
 
 public interface IBouquetItem {
-    public double getPrice();
+    double price();
 
-    public String getName();
+    String name();
 }
