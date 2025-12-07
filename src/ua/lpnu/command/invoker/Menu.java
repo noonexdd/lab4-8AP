@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
-    Map<String, ICommand> menuItems = new LinkedHashMap<>();
-    Scanner input = new Scanner(System.in);
+    private final Map<String, ICommand> menuItems = new LinkedHashMap<>();
+    private final Scanner input = new Scanner(System.in);
 
     public void start() {
         while (true) {

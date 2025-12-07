@@ -8,9 +8,9 @@ import ua.lpnu.domain.bouquet.IBouquetItem;
 import java.util.List;
 
 public class FlowerShopManager {
-    Bouquet currentBouquet;
-    FlowerCatalog catalog;
-    FileStorage fileStorage;
+    private Bouquet currentBouquet;
+    private FlowerCatalog catalog;
+    private FileStorage fileStorage;
 
 
     public void createNewBouquet() {
@@ -50,7 +50,7 @@ public class FlowerShopManager {
     }
 
     public void exit() {
-
+        System.exit(0);
     }
 
     public void replaceFlower() {
