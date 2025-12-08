@@ -1,7 +1,11 @@
 package ua.lpnu.manager;
 
+import ua.lpnu.domain.Accessory;
+import ua.lpnu.domain.Color;
 import ua.lpnu.domain.bouquet.Bouquet;
 import ua.lpnu.domain.FlowerCatalog;
+import ua.lpnu.domain.flower.FreshnessLevel;
+import ua.lpnu.domain.flower.*;
 import ua.lpnu.storage.FileStorage;
 import ua.lpnu.domain.bouquet.IBouquetItem;
 
@@ -14,9 +18,12 @@ public class FlowerShopManager {
     private final Map<String, Bouquet> bouquets = new HashMap<>();
     private Bouquet currentBouquet;
     private final FlowerCatalog catalog = new FlowerCatalog();
-    private FileStorage fileStorage;
+    private final FileStorage fileStorage =  new FileStorage();
     private final Scanner input = new Scanner(System.in);
 
+    public FlowerShopManager() {
+        fillCatalog();
+    }
 
     public void createNewBouquet() {
         System.out.println("Creating bouquet...");
@@ -32,11 +39,13 @@ public class FlowerShopManager {
         bouquets.put(bouquetName, bouquet);
         this.currentBouquet = bouquet;
 
-        System.out.printf("Bouquet %s created!", bouquetName);
+        System.out.printf("Bouquet %s created!\n", bouquetName);
     }
 
     public void addItemToBouquet() {
         System.out.println("Adding item to the bouquet...");
+        if (isBouquetMissing()) return;
+
         showCatalog();
         System.out.println("Select the item you want to add to the bouquet");
 
@@ -45,7 +54,7 @@ public class FlowerShopManager {
         IBouquetItem selectedItem = catalog.getItem(choice);
         if (selectedItem != null) {
             currentBouquet.addItem(selectedItem);
-            System.out.printf("The item %s has been successfully added to the bouquet.", selectedItem.name());
+            System.out.printf("The item %s has been successfully added to the bouquet.\n", selectedItem.name());
         } else {
             System.out.println("There is no such item in the catalog");
         }
@@ -53,6 +62,8 @@ public class FlowerShopManager {
 
     public void sortCurrentBouquet() {
         System.out.println("Sorting bouquets by flower freshness...");
+        if (isBouquetMissing()) return;
+
         currentBouquet.sortFlowerByFreshness();
         System.out.println("Assorted bouquet: ");
         System.out.println(currentBouquet);
@@ -60,6 +71,7 @@ public class FlowerShopManager {
 
     public void findInBouquet() {
         System.out.println("Finding flowers in a bouquet within the stem length range...");
+        if (isBouquetMissing()) return;
 
         try {
             System.out.println("Enter the minimum stem length: ");
@@ -82,15 +94,31 @@ public class FlowerShopManager {
     }
 
     public void showBouquetInfo() {
+        if (isBouquetMissing()) return;
         System.out.println(currentBouquet);
     }
 
     public void saveBouquetToFile() {
+        System.out.println("Saving bouquet...");
 
+        System.out.println("Enter filename name: ");
+        String filename = input.nextLine().trim();
+
+        fileStorage.saveBouquet(currentBouquet,filename);
+    }
+
+    public void loadBouquetFromFile() {
+        System.out.println("Loading bouquet...");
+
+        System.out.println("Enter filename name: ");
+        String filename = input.nextLine().trim();
+
+        bouquets.put("From file", fileStorage.loadBouquet(filename));
     }
 
     public void removeItemFromBouquet() {
         System.out.println("Removing a flower from a bouquet...");
+        if (isBouquetMissing()) return;
         if (currentBouquet.size() == 0) {
             System.out.println("Bouquet is empty.");
             return;
@@ -152,6 +180,7 @@ public class FlowerShopManager {
 
     public void replaceItem() {
         System.out.println("Replacing bouquet...");
+        if (isBouquetMissing()) return;
 
         for (int i = 0; i < currentBouquet.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, currentBouquet.getItem(i));
@@ -191,7 +220,7 @@ public class FlowerShopManager {
         System.out.println("Available bouquets:");
         bouquets.forEach((bouquetName, bouquet) -> {
             String mark = (bouquet == currentBouquet) ? "Current" : "";
-            System.out.printf("- %s %s", bouquetName, mark);
+            System.out.printf("- %s %s\n", bouquetName, mark);
         });
 
         System.out.println("Enter the name of the bouquet you want to use:");
@@ -199,7 +228,7 @@ public class FlowerShopManager {
 
         if (bouquets.containsKey(bouquetName)) {
             this.currentBouquet = bouquets.get(bouquetName);
-            System.out.printf("Bouquet changed to %s", bouquetName);
+            System.out.printf("Bouquet changed to %s\n", bouquetName);
         } else {
             System.out.println("Bouquet not found");
         }
@@ -213,4 +242,31 @@ public class FlowerShopManager {
         }
     }
 
+    private boolean isBouquetMissing() {
+        if (currentBouquet == null) {
+            System.out.println("Bouquet not yet created");
+            return true;
+        }
+        return false;
+    }
+
+    private void fillCatalog() {
+        catalog.addItem(new Rose(80, true, Color.PINK, FreshnessLevel.FRESH, 80.7));
+        catalog.addItem(new Rose(80, true, Color.WHITE, FreshnessLevel.MEDIUM, 70.5));
+        catalog.addItem(new Rose(80, true, Color.RED, FreshnessLevel.FRESH, 85.3));
+        catalog.addItem(new Tulip(65, Color.RED, FreshnessLevel.FRESH, 60.0, true));
+        catalog.addItem(new Tulip(65, Color.WHITE, FreshnessLevel.OLD, 63.2, false));
+        catalog.addItem(new Tulip(65, Color.PURPLE, FreshnessLevel.MEDIUM, 57.8, false));
+        catalog.addItem(new Tulip(65, Color.YELLOW, FreshnessLevel.FRESH, 60.0, true));
+        catalog.addItem(new Gypsophila(90, Color.GREEN, FreshnessLevel.FRESH, 45.0));
+        catalog.addItem(new Gypsophila(90, Color.WHITE, FreshnessLevel.OLD, 50.6));
+        catalog.addItem(new Gypsophila(90, Color.BLUE, FreshnessLevel.OLD, 51.4));
+        catalog.addItem(new Gypsophila(90, Color.PINK, FreshnessLevel.MEDIUM, 47.8));
+        catalog.addItem(new Chamomile(35, Color.WHITE, FreshnessLevel.FRESH, 40));
+        catalog.addItem(new Chamomile(35, Color.YELLOW, FreshnessLevel.FRESH, 37));
+        catalog.addItem(new Accessory("Ribbon", 50));
+        catalog.addItem(new Accessory("Flower wrapping paper", 70));
+        catalog.addItem(new Accessory("Lace", 40));
+        catalog.addItem(new Accessory("Floristic foam", 500));
+    }
 }

@@ -64,6 +64,10 @@ public class Bouquet {
         return null;
     }
 
+    public List<IBouquetItem> getItems() {
+        return items;
+    }
+
     public void removeItem(int index) {
         if (index >= 0 && index < items.size()) {
             items.remove(index);

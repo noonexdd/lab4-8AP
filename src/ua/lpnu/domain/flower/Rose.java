@@ -3,11 +3,15 @@ package ua.lpnu.domain.flower;
 import ua.lpnu.domain.Color;
 
 public class Rose extends Flower {
-    private boolean hasSpikes;
+    private final boolean hasSpikes;
 
     public Rose(double price, boolean hasSpikes, Color color, FreshnessLevel freshness, double stemLength) {
         super(price, "Rose", stemLength, color, freshness);
         this.hasSpikes = hasSpikes;
+    }
+
+    public boolean getHasSpikes() {
+        return hasSpikes;
     }
 
     @Override

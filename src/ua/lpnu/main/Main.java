@@ -17,6 +17,7 @@ public class Main {
         menu.setCommand("Sort bouquet", new SortBouquetCommand(manager));
         menu.setCommand("View bouquet", new ViewBouquetCommand(manager));
         menu.setCommand("Save bouquet to file", new SaveBouquetCommand(manager));
+        menu.setCommand("Load bouquet from file", new LoadBouquetCommand(manager));
         menu.setCommand("Show catalog", new ShowCatalogCommand(manager));
         menu.setCommand("Switch bouquet", new SwitchBouquetCommand(manager));
         menu.setCommand("Get guide", new GetGuideCommand(manager));
