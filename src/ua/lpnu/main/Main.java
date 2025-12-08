@@ -12,12 +12,13 @@ public class Main {
         menu.setCommand("Create new bouquet", new CreateBouquetCommand(manager));
         menu.setCommand("Add item", new AddItemCommand(manager));
         menu.setCommand("Find a flower in a bouquet", new FindFlowerCommand(manager));
-        menu.setCommand("Replace flower", new ReplaceFlowerCommand(manager));
-        menu.setCommand("Remove flower", new RemoveFlowerCommand(manager));
+        menu.setCommand("Replace item", new ReplaceItemCommand(manager));
+        menu.setCommand("Remove item", new RemoveItemCommand(manager));
         menu.setCommand("Sort bouquet", new SortBouquetCommand(manager));
         menu.setCommand("View bouquet", new ViewBouquetCommand(manager));
         menu.setCommand("Save bouquet to file", new SaveBouquetCommand(manager));
         menu.setCommand("Show catalog", new ShowCatalogCommand(manager));
+        menu.setCommand("Switch bouquet", new SwitchBouquetCommand(manager));
         menu.setCommand("Get guide", new GetGuideCommand(manager));
         menu.setCommand("Exit", new ExitCommand(manager));
 

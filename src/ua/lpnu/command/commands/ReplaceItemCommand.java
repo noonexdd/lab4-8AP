@@ -2,15 +2,15 @@ package ua.lpnu.command.commands;
 
 import ua.lpnu.manager.FlowerShopManager;
 
-public class RemoveFlowerCommand implements ICommand {
+public class ReplaceItemCommand implements ICommand {
     FlowerShopManager manager;
 
-    public RemoveFlowerCommand(FlowerShopManager manager) {
+    public ReplaceItemCommand(FlowerShopManager manager) {
         this.manager = manager;
     }
 
     @Override
     public void execute() {
-        manager.removeFlowerFromBouquet();
+        manager.replaceItem();
     }
 }
