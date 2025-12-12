@@ -65,7 +65,7 @@ public class Bouquet {
     }
 
     public List<IBouquetItem> getItems() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     public void removeItem(int index) {

@@ -15,7 +15,7 @@ public class FileStorage {
             List<IBouquetItem> items = bouquet.getItems();
 
             for (IBouquetItem item : items) {
-                String line = converteItemToString(item);
+                String line = convertItemToString(item);
                 if (line != null) {
                     bw.write(line);
                     bw.newLine();
@@ -45,7 +45,7 @@ public class FileStorage {
         return bouquet;
     }
 
-    private String converteItemToString(IBouquetItem item) {
+    private String convertItemToString(IBouquetItem item) {
         StringBuilder sb = new StringBuilder();
 
         switch (item) {

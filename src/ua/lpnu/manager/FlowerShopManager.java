@@ -18,7 +18,7 @@ public class FlowerShopManager {
     private final Map<String, Bouquet> bouquets = new HashMap<>();
     private Bouquet currentBouquet;
     private final FlowerCatalog catalog = new FlowerCatalog();
-    private final FileStorage fileStorage =  new FileStorage();
+    private final FileStorage fileStorage = new FileStorage();
     private final Scanner input = new Scanner(System.in);
 
     public FlowerShopManager() {
@@ -100,11 +100,13 @@ public class FlowerShopManager {
 
     public void saveBouquetToFile() {
         System.out.println("Saving bouquet...");
+        if (isBouquetMissing()) return;
 
         System.out.println("Enter filename name: ");
         String filename = input.nextLine().trim();
 
-        fileStorage.saveBouquet(currentBouquet,filename);
+        fileStorage.saveBouquet(currentBouquet, filename);
+        System.out.println("Bouquet saved");
     }
 
     public void loadBouquetFromFile() {
@@ -113,7 +115,11 @@ public class FlowerShopManager {
         System.out.println("Enter filename name: ");
         String filename = input.nextLine().trim();
 
-        bouquets.put("From file", fileStorage.loadBouquet(filename));
+        System.out.println("Enter bouquet name: ");
+        String bouquetName = input.nextLine().trim();
+
+        bouquets.put(bouquetName, fileStorage.loadBouquet(filename));
+        System.out.println("Bouquet loaded");
     }
 
     public void removeItemFromBouquet() {
