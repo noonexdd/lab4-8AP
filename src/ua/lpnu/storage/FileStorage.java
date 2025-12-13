@@ -1,5 +1,7 @@
 package ua.lpnu.storage;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.lpnu.domain.Accessory;
 import ua.lpnu.domain.Color;
 import ua.lpnu.domain.bouquet.Bouquet;
@@ -10,7 +12,11 @@ import java.io.*;
 import java.util.List;
 
 public class FileStorage {
+    private static final Logger logger = LogManager.getLogger(FileStorage.class);
+
     public void saveBouquet(Bouquet bouquet, String filename) {
+        logger.debug("Start recording the bouquet to file: {}", filename);
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
             List<IBouquetItem> items = bouquet.getItems();
 
@@ -21,13 +27,16 @@ public class FileStorage {
                     bw.newLine();
                 }
             }
+            logger.info("File successfully saved: {} (Bouquet size: {})", filename, bouquet.size());
             System.out.printf("bouquet saved to file: %s\n", filename);
         } catch (IOException e) {
+            logger.error("Critical I/O error while writing file: {}", filename, e);
             System.out.printf("Error saving bouquet %s\n", e.getMessage());
         }
     }
 
     public Bouquet loadBouquet(String filename) {
+        logger.debug("Attempt to read file: {}", filename);
         Bouquet bouquet = new Bouquet();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -38,8 +47,10 @@ public class FileStorage {
                     bouquet.addItem(item);
                 }
             }
+            logger.info("File successfully read: {}", filename);
             System.out.printf("bouquet loaded from file: %s\n", filename);
         } catch (IOException e) {
+            logger.error("Unable to read file (corrupted data): {}", filename, e);
             System.out.printf("Error loading bouquet %s\n", e.getMessage());
         }
         return bouquet;

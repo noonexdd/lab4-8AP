@@ -44,6 +44,6 @@ public class FlowerTest {
         assertTrue(result.contains("TestFlower"));
         assertTrue(result.contains("WHITE"));
         assertTrue(result.contains("OLD"));
-        assertTrue(result.contains("100.0"));
+        assertTrue(result.contains("100,0"));
     }
 }

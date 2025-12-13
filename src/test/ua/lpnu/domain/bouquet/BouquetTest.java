@@ -16,13 +16,13 @@ public class BouquetTest {
     private Bouquet bouquet;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         bouquet = new Bouquet();
     }
 
     @Test
     @DisplayName("Calculate total price correctly")
-    public void calculatePriceTest() {
+    void calculatePriceTest() {
         bouquet.addItem(new Rose(50.0, true, Color.RED, FreshnessLevel.FRESH, 40.0));
         bouquet.addItem(new Accessory("Ribbon", 10.0));
 
@@ -33,7 +33,7 @@ public class BouquetTest {
 
     @Test
     @DisplayName("Sort flowers by freshness")
-    public void sortFlowerTest() {
+    void sortFlowerTest() {
         Rose oldRose = new Rose(10, true, Color.RED, FreshnessLevel.OLD, 10);
         Tulip freshTulip = new Tulip(10, Color.YELLOW, FreshnessLevel.FRESH, 10, false);
         Accessory accessory = new Accessory("Paper", 5);
@@ -121,6 +121,6 @@ public class BouquetTest {
 
         assertNotNull(result);
         assertTrue(result.contains("Ribbon"));
-        assertTrue(result.contains("10.50"));
+        assertTrue(result.contains("10,50"));
     }
 }

@@ -42,7 +42,7 @@ public abstract class Flower implements IBouquetItem {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Price: %f, Color: %s, Freshness: %s, Stem Length: %f",
+        return String.format("Name: %s, Price: %f.2, Color: %s, Freshness: %s, Stem Length: %f",
                 this.name, this.price, this.color, this.freshness, this.stemLength);
 
     }

@@ -29,6 +29,6 @@ public class AccessoryTest {
         assertNotNull(result);
         assertTrue(result.contains("Accessory: Vase"));
         assertTrue(result.contains("Price:"));
-        assertTrue(result.contains("100.00"));
+        assertTrue(result.contains("100,00"));
     }
 }
